@@ -23,7 +23,7 @@ class Cart extends Component {
 		let tmp = true;
 		for (const [index, product] of this.props.productList.entries()) {
 			await query
-				.doc(product.id.split(" ")[1])
+				.doc(product.id.split(" ")[0])
 				.get()
 				.then(async (documentsnapshot) => {
 					tmp = documentsnapshot.data().option;
