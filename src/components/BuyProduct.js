@@ -77,9 +77,13 @@ class BuyProduct extends Component {
 						size_name: this.props.option[i].size,
 					}),
 					() => {
-						let x = this.props.option[this.state.size].quantity;
-						if (this.props.option[this.state.size].quantity === 0)
-							x = 0;
+                        let x = this.props.option[this.state.size].quantity;
+                        let y= this.state.quantity
+						if (x === 0) x = 0;
+						else if (this.state.quantity === 0) {
+							y = 1;
+							this.setState({quantity: x});
+						}
 						if (
 							this.state.quantity >
 							this.props.option[this.state.size].quantity
@@ -90,8 +94,7 @@ class BuyProduct extends Component {
 									quantity: x,
 								},
 								() => {
-                                    if (this.props.id.split(" ").length > 1)
-                                    
+									if (this.props.id.split(" ").length > 1)
 										this.props.updateCart(
 											this.props.index,
 											this.state.quantity,
@@ -99,10 +102,10 @@ class BuyProduct extends Component {
 										);
 								}
 							);
-						} else if (this.props.id.split(" ").length > 1)
+                        } else if (this.props.id.split(" ").length > 1)
 							this.props.updateCart(
 								this.props.index,
-								this.state.quantity,
+								y,
 								this.state.size
 							);
 					}
@@ -141,7 +144,7 @@ class BuyProduct extends Component {
 						ราคา{" "}
 						{this.props.option[this.state.size].price *
 							(this.state.quantity
-								? this.state.quantity 
+								? this.state.quantity
 								: 0)}{" "}
 						บาท
 					</p>
