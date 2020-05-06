@@ -77,45 +77,34 @@ class BuyProduct extends Component {
 						size_name: this.props.option[i].size,
 					}),
 					() => {
+						let x = this.props.option[this.state.size].quantity;
 						if (this.props.option[this.state.size].quantity === 0)
-							{this.child.setText(event, 1);this.setState({quantity:1})}
-						else {
-							if (
-								this.state.quantity >
-								this.props.option[this.state.size].quantity
-							) {
-								if (this.state.quantity !== 0) {
-									this.child.setText(
-										event,
-										this.props.option[this.state.size]
-											.quantity
-									);
-									this.setState(
-										{
-											quantity: this.props.option[
-												this.state.size
-											].quantity,
-										},
-										() => {
-											if (
-												this.props.id.split(" ")
-													.length > 1
-											)
-												this.props.updateCart(
-													this.props.index,
-													this.state.quantity,
-													this.state.size
-												);
-										}
-									);
+							x = 0;
+						if (
+							this.state.quantity >
+							this.props.option[this.state.size].quantity
+						) {
+							this.child.setText(event, x);
+							this.setState(
+								{
+									quantity: x,
+								},
+								() => {
+                                    if (this.props.id.split(" ").length > 1)
+                                    {console.log('sas')
+										this.props.updateCart(
+											this.props.index,
+											this.state.quantity,
+											this.state.size
+										);}
 								}
-							} else if (this.props.id.split(" ").length > 1)
-								this.props.updateCart(
-									this.props.index,
-									this.state.quantity,
-									this.state.size
-								);
-						}
+							);
+						} else if (this.props.id.split(" ").length > 1)
+							this.props.updateCart(
+								this.props.index,
+								this.state.quantity,
+								this.state.size
+							);
 					}
 				);
 			}
@@ -152,7 +141,7 @@ class BuyProduct extends Component {
 						ราคา{" "}
 						{this.props.option[this.state.size].price *
 							(this.state.quantity
-								? this.state.quantity
+								? this.state.quantity 
 								: 0)}{" "}
 						บาท
 					</p>

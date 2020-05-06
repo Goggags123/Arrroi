@@ -32,7 +32,7 @@ class Cart extends Component {
 							product.option.findIndex(
 								(item) => item.size === product.size
 							)
-						].quantity < product.quantity
+						].quantity < product.quantity ||product.quantity===0
 					) {
 						tmp = false;
 					}
@@ -74,7 +74,7 @@ class Cart extends Component {
 						(item) => item.size === product.size
 					)
 				].quantity === 0
-			) {				
+			) {		
                 this.props.removeFromCart(i - dif);
                 toast.error(
 					<>
@@ -98,10 +98,10 @@ class Cart extends Component {
 		});
 		this.setState({isLoading: false});
 	};
-	render() {
+    render() {
 		if (this.props.isLoggedIn)
 			if (!this.state.isLoading)
-				if (parseInt(this.props.numberOfItems) !== 0)
+				if (parseInt(this.props.numberOfItems) !== 0 && this.props.productList.length>0)
 					return (
 						<div className="textS">
 							<h1
@@ -111,7 +111,7 @@ class Cart extends Component {
 								รถเข็น
 							</h1>
 							{this.props.productList.map((product, i) => {
-								if (product.quantity !== 0)
+								// if (product.quantity !== 0)
 									return (
 										<BuyProduct
 											nameOfProduct={product.name}
@@ -148,7 +148,7 @@ class Cart extends Component {
 											default={product.quantity}
 										/>
 									);
-								else return null;
+								// else return null;
 							})}
 							<div
 								style={{
