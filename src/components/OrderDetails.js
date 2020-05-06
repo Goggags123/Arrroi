@@ -103,7 +103,7 @@ class OrderDetails extends Component {
 							querysnapshot.forEach(async (documentsnapshot) => {
 								await this.sendNotification(
 									documentsnapshot.data().noti_key,
-									documentsnapshot.data().username
+									this.props.username
 								);
 							});
 						})
