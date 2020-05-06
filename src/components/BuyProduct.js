@@ -91,12 +91,12 @@ class BuyProduct extends Component {
 								},
 								() => {
                                     if (this.props.id.split(" ").length > 1)
-                                    {console.log('sas')
+                                    
 										this.props.updateCart(
 											this.props.index,
 											this.state.quantity,
 											this.state.size
-										);}
+										);
 								}
 							);
 						} else if (this.props.id.split(" ").length > 1)
