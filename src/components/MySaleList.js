@@ -20,7 +20,7 @@ class MySalesList extends Component {
 			cart: [],
 			store: "",
 			userDetail: "",
-			tmp: false,
+			// tmp: false,
 			realCartIndex: "",
 			alt: true,
 		};
@@ -73,19 +73,21 @@ class MySalesList extends Component {
 				});
 		}
 	};
-	importPayment = async () => {
+    importPayment = async () => {
+        // let tmp = false,has = false;
 		let query = firebase.firestore().collection("cart");
 		await query
 			.get()
 			.then((querysnapshot) => {
 				querysnapshot.forEach(async (cartlists) => {
-					let carts = [];
+					let carts = [],has = false;
 					for (const [
 						i,
 						cart,
 					] of cartlists.data().cartlist.entries()) {
 						let productList = [];
 						if (cart.payment_status && !cart.shop_check) {
+                            let tmp = false;
 							for (const product of cart.productlist) {
 								let query = firebase
 									.firestore()
@@ -99,7 +101,8 @@ class MySalesList extends Component {
 												.store_id ===
 											this.props.store_id
 										) {
-											this.setState({tmp: true});
+                                            tmp = true;
+                                            has = true;
 											productList.push(product);
 										}
 									})
@@ -108,20 +111,19 @@ class MySalesList extends Component {
 									});
 							}
 
-							if (this.state.tmp) {
+							if (tmp) {
+                                has = true;
 								let s = {
 									productList: productList,
 									shop_check: cart.shop_check,
 									realCartIndex: i,
 								};
 								carts.push(s);
-							}
-							this.setState({
-								tmp: false,
-							});
+                            }
 						}
-					}
-					this.summary(cartlists.id, carts);
+                    }
+                    if(has)
+                    this.summary(cartlists.id, carts);
 				});
                 this.setState({loading: false});
 			})
