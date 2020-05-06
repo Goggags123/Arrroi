@@ -95,12 +95,6 @@ class MySales extends Component {
 											].quantity < product.quantity
 										) {
 											z = true;
-											alert(
-												"สินค้า [" +
-													documentsnapshot.data()
-														.name +
-													"] เหลือไม่พอ"
-											);
 										} else
 											tmp[
 												product.option.findIndex(
@@ -151,6 +145,8 @@ class MySales extends Component {
 								y === "cancel" ? "cancel" : "accept",
 								cartid
 							);
+						} else {
+							alert("สินค้าบางชนิดเหลือไม่พอ");
 						}
 					})
 					.catch((e) => {
