@@ -16,9 +16,9 @@ class MySales extends Component {
 			.limit(1)
 			.get()
 			.then((querysnapshot) => {
-                querysnapshot.forEach((documentsnapshot) => {
-                    noti_key = documentsnapshot.data().noti_key;
-                });
+				querysnapshot.forEach((documentsnapshot) => {
+					noti_key = documentsnapshot.data().noti_key;
+				});
 			})
 			.catch((e) => {
 				console.log(e.message);
@@ -70,7 +70,8 @@ class MySales extends Component {
 					.get()
 					.then(async (documentsnapshop) => {
 						carttmp = documentsnapshop.data().cartlist;
-						let tmp = "";
+						let tmp = "",
+							z = false;
 						if (y !== "cancel") {
 							for (const [index, product] of carttmp[
 								this.props.orderList[i].cartList[x]
@@ -84,26 +85,30 @@ class MySales extends Component {
 									.get()
 									.then((documentsnapshot) => {
 										tmp = documentsnapshot.data().option;
-										tmp[
-											product.option.findIndex(
-												(item) =>
-													item.size === product.size
-											)
-										].quantity < product.quantity
-											? (tmp[
-													product.option.findIndex(
-														(item) =>
-															item.size ===
-															product.size
-													)
-											  ].quantity = 0)
-											: (tmp[
-													product.option.findIndex(
-														(item) =>
-															item.size ===
-															product.size
-													)
-											  ].quantity -= product.quantity);
+										if (
+											tmp[
+												product.option.findIndex(
+													(item) =>
+														item.size ===
+														product.size
+												)
+											].quantity < product.quantity
+										) {
+											z = true;
+											alert(
+												"สินค้า [" +
+													documentsnapshot.data()
+														.name +
+													"] เหลือไม่พอ"
+											);
+										} else
+											tmp[
+												product.option.findIndex(
+													(item) =>
+														item.size ===
+														product.size
+												)
+											].quantity -= product.quantity;
 									})
 									.catch(function (error) {
 										console.log("Error", error);
@@ -113,36 +118,40 @@ class MySales extends Component {
 									.update({option: tmp});
 							}
 						}
-						carttmp[
-							this.props.orderList[i].cartList[x].realCartIndex
-						].shop_check = true;
-						if (y === "cancel")
-							{carttmp[
+						if (y === "cancel") {
+							carttmp[
 								this.props.orderList[i].cartList[
 									x
 								].realCartIndex
-                        ].customer_check = true;
-                        carttmp[
-                            this.props.orderList[i].cartList[
-                                x
-                            ].realCartIndex
-                        ].delete = true;
-                        }
-						this.props.removeShop(
-							x,
-							this.props.orderList[i].userDetail.username
-						);
-						await query
-							.doc(cartid)
-							.set({cartlist: carttmp})
-							.catch((e) => {
-								console.log(e.message);
-							});
-						await this.sendNotification(
-							this.props.orderList[i].userDetail.username,
-							y === "cancel" ? "cancel" : "accept",
-							cartid
-						);
+							].customer_check = true;
+							carttmp[
+								this.props.orderList[i].cartList[
+									x
+								].realCartIndex
+							].delete = true;
+						}
+						if (!z) {
+							carttmp[
+								this.props.orderList[i].cartList[
+									x
+								].realCartIndex
+							].shop_check = true;
+							this.props.removeShop(
+								x,
+								this.props.orderList[i].userDetail.username
+							);
+							await query
+								.doc(cartid)
+								.set({cartlist: carttmp})
+								.catch((e) => {
+									console.log(e.message);
+								});
+							await this.sendNotification(
+								this.props.orderList[i].userDetail.username,
+								y === "cancel" ? "cancel" : "accept",
+								cartid
+							);
+						}
 					})
 					.catch((e) => {
 						console.log(e.message);
