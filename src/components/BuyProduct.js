@@ -81,7 +81,7 @@ class BuyProduct extends Component {
 						console.log(
 							this.props.option[this.state.size].quantity,
 							this.state.quantity,
-							"BEFORE IF"
+							"BEFORE I"
 						);
 						console.log(
 							this.state.quantity,
