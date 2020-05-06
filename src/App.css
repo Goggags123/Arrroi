@@ -748,7 +748,9 @@ h1.shop-title {
     width: 20%;
     border-radius: 0.5%;
 }
-
+.box_menu:hover {
+    box-shadow: 10px 10px 20px #707070;
+}
 .shop:hover {
     border: 2px solid #814A2C;
     box-shadow: 10px 10px 20px #707070;

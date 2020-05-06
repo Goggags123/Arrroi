@@ -70,19 +70,15 @@ class Input extends Component {
 			}
 		);
 	};
-	setText = (quantity) => {
-        console.log(quantity,'CHILD',this.props.index)
-		this.setState(
-			{
-				text: quantity,
-			},			
-        );
-        if(this.props.index)
-        this.props.updateCart(
-            this.props.index,
-            quantity,
-            this.props.size
-        );
+	setText = (event, quantity) => {
+		let value = quantity;
+		if (quantity === 0) value = 1;
+		this.setState({
+			text: value,
+		});
+		this.props.pass(event, value);
+		if (this.props.index)
+			this.props.updateCart(this.props.index, value, this.props.size);
 	};
 	handleChange = (event) => {
 		this.setState({
@@ -90,9 +86,7 @@ class Input extends Component {
 		});
 		console.log("handlechange");
 		if (event.target.id.includes("button")) {
-			if (
-				parseInt(event.target.value) === 0
-			) {
+			if (parseInt(event.target.value) === 0) {
 				event.target.value = 1;
 			}
 			if (parseInt(event.target.value) > this.props.boundary) {
@@ -128,15 +122,13 @@ class Input extends Component {
 			});
 			this.props.pass(y, "", false);
 		}
-    };
-    setCheck = (event) => {
-        if (event.target.id.includes("button")) {
-            if (
-                event.target.value === ""
-            ) {
-                event.target.value = 1;
-            }
-            this.setState({
+	};
+	setCheck = (event) => {
+		if (event.target.id.includes("button")) {
+			if (event.target.value === "") {
+				event.target.value = 1;
+			}
+			this.setState({
 				text: event.target.value,
 			});
 			this.props.pass(event, parseInt(event.target.value));
@@ -146,8 +138,8 @@ class Input extends Component {
 					this.state.text,
 					this.props.size
 				);
-        }
-    }
+		}
+	};
 	checkInput = (event) => {
 		if (this.props.id.includes("button")) {
 			if (
@@ -253,8 +245,8 @@ class Input extends Component {
 						onChange={this.handleChange}
 						onPaste={(event) => {
 							event.preventDefault();
-                        }}
-                        onBlur={this.setCheck}
+						}}
+						onBlur={this.setCheck}
 						onKeyDown={this.checkInput}
 						maxLength={this.props.maxLength}
 						onClick={(e) => {

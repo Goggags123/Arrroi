@@ -69,9 +69,17 @@ class Navbar extends Component {
 			.get()
 			.then((documentsnapshot) => {
 				carttmp = documentsnapshot.data().cartlist;
+			})
+			.catch(function (error) {
+				console.log(error);
 			});
 		carttmp[carttmp.length - 1].productlist = this.props.productList;
-		await query.doc(this.props.cart_id).set({cartlist: carttmp});
+		await query
+			.doc(this.props.cart_id)
+			.set({cartlist: carttmp})
+			.catch(function (error) {
+				console.log(error);
+			});
 		this.props.logout();
 		this.props.clearAll();
 		this.props.clearShop();
@@ -81,7 +89,6 @@ class Navbar extends Component {
 		});
 	};
 	notify = () => {
-		console.log("dsdffddsfdffdssfddsdf");
 		let x = this.props.notification[0].notification_list.slice();
 		let y = x.reverse()[0].title.split(" ");
 		if (y[1].includes("ยกเลิก"))

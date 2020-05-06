@@ -8,7 +8,7 @@ class Home extends Component {
 		return (
 			<div className="textS">
 				<h1 className="head_home" align="center">
-					คุณกำลังมองหาเครื่องปรุงอยู่ใช่ไหม?
+					คุณกำลังมองหาสินค้าอยู่ใช่ไหม?
 				</h1>
 				<div className="box" align="center">
 					<Link className="link box_menu" to="/menu">

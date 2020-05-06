@@ -8,7 +8,6 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Navbar from "./components/Navbar";
 import About from "./components/About";
-import Test from "./components/Test";
 import Notification from "./components/Notification";
 import MenuPage from "./components/MenuPage";
 import MenuDetails from "./components/MenuDetails";
@@ -71,11 +70,6 @@ class App extends Component {
 									component={Register}
 								/>
 								<Route path="/home" exact component={Home} />
-								<Route
-									path="/test/id=:id"
-									exact
-									component={Test}
-								/>
 								<Route path="/about" exact component={About} />
 								<Route
 									path="/menu"

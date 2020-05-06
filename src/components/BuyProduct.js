@@ -66,7 +66,7 @@ class BuyProduct extends Component {
 		let x = document.getElementsByName("radio " + this.props.id);
 		x[this.state.size].checked = "checked";
 	};
-	setSize = () => {
+	setSize = (event) => {
 		let x = document.getElementsByName("radio " + this.props.id);
 		for (let i = 0; i < x.length; i++) {
 			if (x[i].checked) {
@@ -77,36 +77,56 @@ class BuyProduct extends Component {
 						size: i,
 						size_name: this.props.option[i].size,
 					}),
-                    () => {
-                        console.log(this.props.option[this.state.size].quantity,this.state.quantity,'BEFORE IF')
-						if (
-							this.state.quantity >
+					() => {
+						console.log(
+							this.props.option[this.state.size].quantity,
+							this.state.quantity,
+							"BEFORE IF"
+						);
+						console.log(
+							this.state.quantity,
 							this.props.option[this.state.size].quantity
-						) {
-                            console.log(this.props.option[this.state.size].quantity,this.state.size,'BEFORE CHILD');
-							this.child.setText(
+						);
+						if (this.props.option[this.state.size].quantity === 0)
+							{this.child.setText(event, 1);this.setState({quantity:1})}
+						else {
+							if (
+								this.state.quantity >
 								this.props.option[this.state.size].quantity
-							);
-							this.setState(
-								{
-									quantity: this.props.option[this.state.size]
-										.quantity,
-								},
-								() => {
-									if (this.props.id.split(" ").length > 1)
-										this.props.updateCart(
-											this.props.index,
-											this.state.quantity,
-											this.state.size
-										);
+							) {
+								if (this.state.quantity !== 0) {
+									// console.log(this.props.option[this.state.size].quantity,this.state.size,'BEFORE CHILD');
+									this.child.setText(
+										event,
+										this.props.option[this.state.size]
+											.quantity
+									);
+									this.setState(
+										{
+											quantity: this.props.option[
+												this.state.size
+											].quantity,
+										},
+										() => {
+											if (
+												this.props.id.split(" ")
+													.length > 1
+											)
+												this.props.updateCart(
+													this.props.index,
+													this.state.quantity,
+													this.state.size
+												);
+										}
+									);
 								}
-							);
-						} else if (this.props.id.split(" ").length > 1)
-							this.props.updateCart(
-								this.props.index,
-								this.state.quantity,
-								this.state.size
-							);
+							} else if (this.props.id.split(" ").length > 1)
+								this.props.updateCart(
+									this.props.index,
+									this.state.quantity,
+									this.state.size
+								);
+						}
 					}
 				);
 			}
@@ -143,9 +163,9 @@ class BuyProduct extends Component {
 					<p style={{fontSize: "2.2vw", margin: "1vw 0 1vw 0"}}>
 						ราคา{" "}
 						{this.props.option[this.state.size].price *
-						(this.state.quantity
-							? this.state.quantity
-							: 0)}{" "}
+							(this.state.quantity
+								? this.state.quantity
+								: 0)}{" "}
 						บาท
 					</p>
 					<div

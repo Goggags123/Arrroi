@@ -11,14 +11,41 @@ import {newCart} from "../redux/index";
 class OrderDetails extends Component {
 	constructor(props) {
 		super(props);
-
-		// window.scrollTo(0, 0)
 		this.state = {userDetail: ""};
 	}
-	componentWillMount = () => {};
+
+	sendNotification = async (noti_key, username) => {
+		let query = firebase.firestore().collection("notification");
+		let noti_list = [];
+		await query
+			.doc(noti_key)
+			.get()
+			.then((documentsnapshot) => {
+				noti_list = documentsnapshot.data().notification_list;
+			}).catch((e) => {
+                console.log(e.message);
+            });
+		noti_list.push({
+			message:
+				username +
+				" ได้สั่งสินค้าในรถเข็น #" +
+				this.props.cart_id +
+				" และกำลังรอการตอบรับ",
+			time: firebase.firestore.Timestamp.now(),
+			title: username + " ได้สั่งสินค้า",
+			type: "order",
+		});
+		await query
+			.doc(noti_key)
+			.update({
+				notification_list: noti_list,
+			})
+			.catch((e) => {
+				console.log(e.message);
+			});
+	};
 	componentDidMount = async () => {
 		window.scrollTo(0, 0);
-		console.log("woo hoo");
 		await this.importData();
 		let x = document.getElementsByName("radio payment");
 		x[0].checked = "checked";
@@ -34,6 +61,9 @@ class OrderDetails extends Component {
 				querysnapshot.forEach((documentsnapshot) => {
 					this.setState({userDetail: documentsnapshot.data()});
 				});
+			})
+			.catch((e) => {
+				console.log(e.message);
 			});
 	};
 	submitCart = async () => {
@@ -48,6 +78,40 @@ class OrderDetails extends Component {
 					carttmp.length - 1
 				].productlist = this.props.productList;
 				carttmp[carttmp.length - 1].payment_status = true;
+				let storeList = [];
+				for (const product of carttmp[carttmp.length - 1].productlist) {
+					let query2 = firebase.firestore().collection("product");
+					await query2
+						.doc(product.id.split(" ")[0])
+						.get()
+						.then((documentsnapshot) => {
+							storeList.push(documentsnapshot.data().store_id);
+						})
+						.catch((e) => {
+							console.log(e.message);
+						});
+				}
+				let unique = storeList.filter((value, index, self) => {
+					return self.indexOf(value) === index;
+				});
+				for (const store of unique) {
+					let query3 = firebase.firestore().collection("user");
+					await query3
+						.where("store_id", "==", store)
+						.limit(1)
+						.get()
+						.then((querysnapshot) => {
+							querysnapshot.forEach(async (documentsnapshot) => {
+								await this.sendNotification(
+									documentsnapshot.data().noti_key,
+									documentsnapshot.data().username
+								);
+							});
+						})
+						.catch((e) => {
+							console.log(e.message);
+						});
+				}
 				carttmp.push({
 					created_at: firebase.firestore.Timestamp.now(),
 					payment_status: Boolean(false),
@@ -57,6 +121,7 @@ class OrderDetails extends Component {
 					productlist: [],
 				});
 				await query.doc(this.props.cart_id).set({cartlist: carttmp});
+
 				this.props.newCart();
 				this.props.history.push("/" + this.props.username + "/orders");
 			});
