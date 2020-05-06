@@ -12,8 +12,8 @@ class MenuDetails extends Component {
 			ingredientsList: "", //สำหรับใส่ list ส่วนผสม
 			stepsList: "", //สำหรับใส่ list วิธีการทำอาหาร
 			temp: "",
-            loading: true,
-            name:""
+			loading: true,
+			name: "",
 		};
 	}
 
@@ -21,7 +21,7 @@ class MenuDetails extends Component {
 	componentWillMount = async () => {
 		await this.importdata();
 		await this.getname();
-        window.scrollTo(0,0)
+		window.scrollTo(0, 0);
 	};
 
 	getname = async () => {
@@ -48,9 +48,9 @@ class MenuDetails extends Component {
 						],
 					}));
 				})
-                .catch((e) => {
-                    console.log(e.message);
-                });
+				.catch((e) => {
+					console.log(e.message);
+				});
 		}
 		this.setState((prevState) => ({
 			...prevState,
@@ -65,8 +65,8 @@ class MenuDetails extends Component {
 			.doc(this.state.id)
 			.get()
 			.then((documentsnapshot) => {
-                this.setState({
-                    name:documentsnapshot.data().name,
+				this.setState({
+					name: documentsnapshot.data().name,
 					multiplier: documentsnapshot.data().multiplier,
 					ingredientsList: documentsnapshot.data().productList,
 					stepsList: documentsnapshot.data().howto,
@@ -134,6 +134,21 @@ class MenuDetails extends Component {
 							</div>
 						);
 					})}
+					<div align="center">
+						<button
+							onClick={()=>this.props.history.push('/menu/ingredients/id='+this.props.match.params.id)}
+							className="login textS"
+							style={{
+								width: "auto",
+								padding: "0.5vw 2vw 0.5vw 2vw",
+								fontSize: "1.8vw",
+								marginTop: "0.5vw",
+								marginBottom: "2vw",
+							}}
+						>
+							ซื้อส่วนผสม
+						</button>
+					</div>
 				</div>
 			);
 		else return <Loading />;
