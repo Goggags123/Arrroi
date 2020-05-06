@@ -42,6 +42,9 @@ class Login extends Component {
 					].productlist
 				);
 				this.props.login(this.state.username);
+			})
+			.catch((e) => {
+				console.log(e.message);
 			});
 	};
 
@@ -69,6 +72,9 @@ class Login extends Component {
 					});
 					this.props.importShop(documentsnapshot.data().store_id);
 				});
+			})
+			.catch((e) => {
+				console.log(e.message);
 			});
 	};
 	getNotification = async () => {
@@ -177,7 +183,6 @@ class Login extends Component {
 				</div>
 			);
 		} else {
-			// console.log(this.props.history.location)
 			if (
 				this.props.history.location.state &&
 				this.props.history.location.state.from &&

@@ -125,7 +125,6 @@ class Navbar extends Component {
 		return null;
 	};
 	render() {
-		// console.log(this.props.notification,this.props.isFinished)
 		return (
 			<div className="row-flex navbar textM">
 				{this.props.notification &&

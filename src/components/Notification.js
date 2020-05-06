@@ -13,7 +13,6 @@ class Notification extends Component {
 	};
 	
 	render() {
-		console.log("dfsdad", this.props.notification);
 		if (this.props.isLoggedIn)
 			if (this.props.notification) {
 				if (
@@ -21,7 +20,6 @@ class Notification extends Component {
 					this.props.notification[0].notification_list &&
 					this.props.notification[0].notification_list.length > 0
 				) {
-					console.log("dfsdad", this.props.notification);
 					let noti = this.props.notification[0].notification_list.slice();
 					return (
 						<div className="textS">

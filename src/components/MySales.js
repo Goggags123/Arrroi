@@ -16,9 +16,12 @@ class MySales extends Component {
 			.limit(1)
 			.get()
 			.then((querysnapshot) => {
-				querysnapshot.forEach((documentsnapshot) => {
-					noti_key = documentsnapshot.data().noti_key;
-				});
+                querysnapshot.forEach((documentsnapshot) => {
+                    noti_key = documentsnapshot.data().noti_key;
+                });
+			})
+			.catch((e) => {
+				console.log(e.message);
 			});
 		query = firebase.firestore().collection("notification");
 		await query
@@ -26,6 +29,9 @@ class MySales extends Component {
 			.get()
 			.then((documentsnapshot) => {
 				noti_list = documentsnapshot.data().notification_list;
+			})
+			.catch((e) => {
+				console.log(e.message);
 			});
 		noti_list.push({
 			message:
@@ -48,7 +54,6 @@ class MySales extends Component {
 		});
 	};
 	deleteCart = async (event) => {
-		console.log(event.target);
 		let x = parseInt(event.target.id.split(" ")[0]);
 		let y = event.target.id.split(" ")[1];
 		let query = firebase.firestore().collection("cart");
@@ -64,21 +69,13 @@ class MySales extends Component {
 					.doc(cartid)
 					.get()
 					.then(async (documentsnapshop) => {
-						console.log(documentsnapshop.data());
 						carttmp = documentsnapshop.data().cartlist;
-						console.log(
-							"tf",
-							this.props.orderList[i].cartList[x],
-							this.props.orderList[i],
-							carttmp
-						);
 						let tmp = "";
 						if (y !== "cancel") {
 							for (const [index, product] of carttmp[
 								this.props.orderList[i].cartList[x]
 									.realCartIndex
 							].productlist.entries()) {
-								console.log(product, "product");
 								let query2 = firebase
 									.firestore()
 									.collection("product");
@@ -86,7 +83,6 @@ class MySales extends Component {
 									.doc(product.id.split(" ")[0])
 									.get()
 									.then((documentsnapshot) => {
-										console.log(documentsnapshot.data());
 										tmp = documentsnapshot.data().option;
 										tmp[
 											product.option.findIndex(
@@ -156,7 +152,6 @@ class MySales extends Component {
 	};
 	checkNumber = (order) => {
 		for (let j = 0; j < order.cartList.length; j++) {
-			console.log("fsafsadasdfdsf", order.cartList[j]);
 			if (!order.cartList[j].shop_check) {
 				return true;
 			}
@@ -166,7 +161,6 @@ class MySales extends Component {
 	};
 
 	render() {
-		console.log("what", this.props.orderList);
 		if (this.props.isLoggedIn)
 			if (this.props.orderList)
 				return (

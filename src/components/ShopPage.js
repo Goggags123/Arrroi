@@ -38,7 +38,6 @@ class ShopPage extends Component {
 	};
 	render() {
         if (!this.state.loading) {
-            console.log(this.state.storeList)
 			return (
 				<>
 					<h1 className="textS shop-title"> ร้านค้าแนะนำ </h1>

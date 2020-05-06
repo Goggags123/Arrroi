@@ -22,12 +22,10 @@ class Cart extends Component {
 		let query = firebase.firestore().collection("product");
 		let tmp = true;
 		for (const [index, product] of this.props.productList.entries()) {
-			console.log(product.id);
 			await query
 				.doc(product.id.split(" ")[0])
 				.get()
 				.then(async (documentsnapshot) => {
-					console.log(documentsnapshot.data());
 					tmp = documentsnapshot.data().option;
 					if (
 						tmp[
@@ -55,12 +53,10 @@ class Cart extends Component {
 	updateProductList = async () => {
 		let query = firebase.firestore().collection("product");
 		for (const [index, product] of this.props.productList.entries()) {
-			console.log(product.id);
 			await query
 				.doc(product.id.split(" ")[0])
 				.get()
 				.then(async (documentsnapshot) => {
-					console.log(documentsnapshot.data());
 					await this.props.updateOption(
 						documentsnapshot.data().option,
 						index

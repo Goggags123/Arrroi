@@ -150,7 +150,6 @@ class Register extends Component {
 			});
 	};
 	addNoticationToFirestore = async () => {
-		console.log(this.state.บัญชีผู้ใช้, "usernamemeeeeee");
 		let db = firebase.firestore().collection("notification").doc();
 		await db
 			.set({
@@ -273,8 +272,6 @@ class Register extends Component {
 		}
 
 		this.setState({loading: false});
-		console.log(this.state.error);
-		console.log(this.state.isError);
 	};
 
 	render() {

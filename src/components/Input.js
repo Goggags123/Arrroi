@@ -11,14 +11,13 @@ class Input extends Component {
 			open: false,
 			isFocused: false,
 		};
-		console.log(this.props, "updata", this.state);
 		this.props.quantity
 			? this.props.updateCart(
 					this.props.index,
 					this.state.text,
 					this.props.size
 			  )
-			: console.log("huh");
+			: console.log("");
 	}
 	componentWillMount = () => {
 		if (this.props.onRef) this.props.onRef(undefined);
@@ -84,7 +83,6 @@ class Input extends Component {
 		this.setState({
 			text: event.target.value,
 		});
-		console.log("handlechange");
 		if (event.target.id.includes("button")) {
 			if (parseInt(event.target.value) === 0) {
 				event.target.value = 1;

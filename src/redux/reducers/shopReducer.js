@@ -29,7 +29,6 @@ export const shopReducer = (state = initialState, action) => {
 							Object.assign({}, state.orderList[i], {
 								cartList: state.orderList[i].cartList.map(
 									(cart, j) => {
-										console.log(j,action.payload);
 										return j === action.payload.index
 											? Object.assign(
 													{},

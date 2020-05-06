@@ -6,7 +6,6 @@ import Image from "./Image";
 class MenuDetails extends Component {
 	constructor(props) {
 		super(props);
-		console.log("dfsdafsfsff");
 		this.state = {
 			id: this.props.match.params.id, //ชื่อเมนูอาหาร เช่น กุ้งคั่วกระเทียมพริก จาก url
 			multiplier: "", //สำหรับใส่จำนวนที่
@@ -48,7 +47,10 @@ class MenuDetails extends Component {
 							...prevState.ingredientsList.slice(index + 1),
 						],
 					}));
-				});
+				})
+                .catch((e) => {
+                    console.log(e.message);
+                });
 		}
 		this.setState((prevState) => ({
 			...prevState,
@@ -69,6 +71,9 @@ class MenuDetails extends Component {
 					ingredientsList: documentsnapshot.data().productList,
 					stepsList: documentsnapshot.data().howto,
 				});
+			})
+			.catch((e) => {
+				console.log(e.message);
 			});
 	};
 

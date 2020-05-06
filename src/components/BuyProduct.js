@@ -70,7 +70,6 @@ class BuyProduct extends Component {
 		let x = document.getElementsByName("radio " + this.props.id);
 		for (let i = 0; i < x.length; i++) {
 			if (x[i].checked) {
-				console.log(this.state, "quantity");
 				this.setState(
 					(prevState) => ({
 						...prevState,
@@ -78,15 +77,6 @@ class BuyProduct extends Component {
 						size_name: this.props.option[i].size,
 					}),
 					() => {
-						console.log(
-							this.props.option[this.state.size].quantity,
-							this.state.quantity,
-							"BEFORE I"
-						);
-						console.log(
-							this.state.quantity,
-							this.props.option[this.state.size].quantity
-						);
 						if (this.props.option[this.state.size].quantity === 0)
 							{this.child.setText(event, 1);this.setState({quantity:1})}
 						else {
@@ -95,7 +85,6 @@ class BuyProduct extends Component {
 								this.props.option[this.state.size].quantity
 							) {
 								if (this.state.quantity !== 0) {
-									// console.log(this.props.option[this.state.size].quantity,this.state.size,'BEFORE CHILD');
 									this.child.setText(
 										event,
 										this.props.option[this.state.size]
@@ -133,7 +122,6 @@ class BuyProduct extends Component {
 		}
 	};
 	render() {
-		console.log(this.props, "now", this.state.size);
 		return (
 			<div
 				className="storeBox textS"

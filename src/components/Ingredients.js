@@ -34,6 +34,9 @@ class Ingredients extends Component {
 					name: documentsnapshot.data().name,
 					detail: documentsnapshot.data(),
 				});
+			})
+			.catch((e) => {
+				console.log(e.message);
 			});
 		query = firebase.firestore().collection("product");
 		await query
@@ -41,16 +44,16 @@ class Ingredients extends Component {
 			.get()
 			.then((querysnapshot) => {
 				querysnapshot.forEach((documentsnapshot) => {
-					console.log(documentsnapshot.data());
 					tmp.push(
 						Object.assign({}, documentsnapshot.data(), {
 							product_id: documentsnapshot.id,
 						})
 					);
-					console.log(tmp);
 				});
+			})
+			.catch((e) => {
+				console.log(e.message);
 			});
-		console.log("sttst", tmp);
 
 		this.setState({
 			productList: tmp,
@@ -73,7 +76,6 @@ class Ingredients extends Component {
 					name: documentsnapshot.data().name,
 				});
 			});
-		console.log(tmp);
 		let tmpmenuall = [];
 		for (let index = 0; index < tmp.productList.length; index++) {
 			await query2
@@ -81,7 +83,10 @@ class Ingredients extends Component {
 				.get()
 				.then((documentsnapshot) => {
 					tmpmenuall.push(documentsnapshot.data());
-				});
+				})
+                .catch((e) => {
+                    console.log(e.message);
+                });
 		}
 		let productList = [];
 		tmp.productList.forEach((data, index) => {
@@ -98,7 +103,6 @@ class Ingredients extends Component {
 		});
 	};
 	render() {
-		console.log(this.state);
 		if (!this.state.loading)
 			return (
 				<>

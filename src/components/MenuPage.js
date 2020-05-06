@@ -28,7 +28,6 @@ class MenuPage extends Component {
 			.get()
 			.then( (querysnapshot) => {
 				querysnapshot.forEach((documentsnapshot) => {
-					console.log(documentsnapshot.data());
 					let x = documentsnapshot.data().recommendlist;
 					 x.forEach(async (id) => {
 						await firebase
@@ -48,7 +47,6 @@ class MenuPage extends Component {
 			.catch(function (error) {
 				console.log("Error", error);
 			});
-            console.log('dfsffffffaf',tmp)
 		this.setState({recommend:tmp})
 	};
 	importdata = async () => {
@@ -72,11 +70,7 @@ class MenuPage extends Component {
 			menuList: tmp,
 		});
 	};
-	// getImageFood(image) {
-
-	// }
 	render() {
-		console.log(this.state.recommend);
 		if (this.state.menuList !== "" && this.state.recommend !== "")
 			return (
 				<div className="column-flex menu-page">

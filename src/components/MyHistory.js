@@ -42,6 +42,9 @@ class MyHistory extends Component {
 			.get()
 			.then((documentsnapshot) => {
 				noti_list = documentsnapshot.data().notification_list;
+			})
+			.catch((e) => {
+				console.log(e.message);
 			});
 		noti_list.push({
 			message: "รถเข็นหมายเลข #" + this.props.cart_id + " สินค้าได้ถึงมือผู้ซื้อแล้ว",
@@ -71,7 +74,6 @@ class MyHistory extends Component {
 				//cartlist
 				let cart = documentsnapshot.data().cartlist[x];
 				for (const [i, product] of cart.productlist.entries()) {
-					console.log(product, "fffffff");
 					let query2 = firebase.firestore().collection("product");
 					await query2
 						.doc(product.id.split(" ")[0])

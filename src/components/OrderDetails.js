@@ -52,7 +52,6 @@ class OrderDetails extends Component {
 	};
 	importData = async () => {
 		let query = firebase.firestore().collection("user");
-		console.log(this.props.match.params.name);
 		await query
 			.where("username", "==", this.props.username)
 			.limit(1)
@@ -124,6 +123,9 @@ class OrderDetails extends Component {
 
 				this.props.newCart();
 				this.props.history.push("/" + this.props.username + "/orders");
+			})
+			.catch((e) => {
+				console.log(e.message);
 			});
 	};
 

@@ -33,13 +33,15 @@ class MySalesList extends Component {
 		}
 	};
 	getStoreName = async () => {
-		console.log("getStorename");
 		let query = firebase.firestore().collection("store");
 		await query
 			.doc(this.props.store_id)
 			.get()
 			.then((documentsnapshot) => {
 				this.setState({store: documentsnapshot.data().name});
+			})
+			.catch((e) => {
+				console.log(e.message);
 			});
 	};
 	summary = async (cart_id, cart) => {
@@ -122,16 +124,12 @@ class MySalesList extends Component {
 					this.summary(cartlists.id, carts);
 				});
                 this.setState({loading: false});
-				// if (this.props.orderList.length > 0) {
-				// 	console.log("ffdfsddsdd");
-				// }
 			})
 			.catch((e) => {
 				console.log(e.message);
 			});
 	};
 	render() {
-		console.log(this.state.loading, this.state.orderList);
 		if (this.props.isLoggedIn)
 			if (
 				!this.state.loading &&
