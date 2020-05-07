@@ -101,7 +101,7 @@ class Cart extends Component {
     render() {
 		if (this.props.isLoggedIn)
 			if (!this.state.isLoading)
-				if (parseInt(this.props.numberOfItems) !== 0 && this.props.productList.length>0)
+				if (parseInt(this.props.numberOfItems) !== 0 || this.props.productList.length>0)
 					return (
 						<div className="textS">
 							<h1

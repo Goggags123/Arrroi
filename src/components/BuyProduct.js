@@ -77,13 +77,15 @@ class BuyProduct extends Component {
 						size_name: this.props.option[i].size,
 					}),
 					() => {
-                        let x = this.props.option[this.state.size].quantity;
-                        let y= this.state.quantity
+						let x = this.props.option[this.state.size].quantity;
+						let y = this.state.quantity;
 						if (x === 0) x = 0;
 						else if (this.state.quantity === 0) {
-							y = 1;
-							this.setState({quantity: x});
+                            y = 1;
+                            // this.child.setText(event,y)
+							this.setState({quantity: y});
 						}
+
 						if (
 							this.state.quantity >
 							this.props.option[this.state.size].quantity
@@ -103,11 +105,16 @@ class BuyProduct extends Component {
 								}
 							);
                         } else if (this.props.id.split(" ").length > 1)
+                        // console.log(z,x,y,'wwww')
 							this.props.updateCart(
 								this.props.index,
 								y,
 								this.state.size
-							);
+                        );
+                        // if (z) {                            
+                        //     this.child.setText(event,x)
+						// 	this.setState({quantity: x});
+                        // }
 					}
 				);
 			}
