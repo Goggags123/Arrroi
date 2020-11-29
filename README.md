@@ -10,7 +10,7 @@ It is an e-commerce web application for ordering cooking ingredients based on re
 - [aomsaitan](https://github.com/aomsaitan): UX/UI designer, Frontend developer
 - [NimPimpida](https://github.com/NimPimpida): UX/UI designer, Frontend developer
 - [sirget](https://github.com/sirget): Lead backend developed, Tester
-- [](): Backend developer, Tester
+- [Pexing](https://github.com/Pexing): Backend developer, Tester
 
 ## Available Scripts
 
