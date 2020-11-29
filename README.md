@@ -1,5 +1,16 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## About
+
+This group project is developed in *Software Development Process* course.
+
+Team members
+- [Goggags123](https://github.com/Goggags123): Lead frontend developer
+- [aomsaitan](https://github.com/aomsaitan): UX/UI designer, Frontend developer
+- [NimPimpida](https://github.com/NimPimpida): UX/UI designer, Frontend developer
+- [sirget](https://github.com/sirget): Lead backend developed, Tester
+- [](): Backend developer, Tester
+
 ## Available Scripts
 
 In the project directory, you can run:
