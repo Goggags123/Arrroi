@@ -2,9 +2,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## About
 
-This group project is developed in *Software Development Process* course.
+This group project was developed in **Software Development Process** course.  
+It is an e-commerce web application for ordering cooking ingredients based on recipes.
 
-Team members
+**Team members**
 - [Goggags123](https://github.com/Goggags123): Lead frontend developer
 - [aomsaitan](https://github.com/aomsaitan): UX/UI designer, Frontend developer
 - [NimPimpida](https://github.com/NimPimpida): UX/UI designer, Frontend developer
